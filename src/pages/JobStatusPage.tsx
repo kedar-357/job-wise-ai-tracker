@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -12,23 +11,24 @@ import { Card, CardContent } from "@/components/ui/card";
 import { PlusCircle, Trash2, Edit } from "lucide-react";
 import { toast } from "sonner";
 
-// Mock data for demo purposes
+type JobStatus = "applied" | "interview" | "offered" | "rejected";
+
 const mockJobs = {
   applied: [
-    { id: 1, company: "Google", role: "Frontend Engineer", pay: "$120,000 - $150,000", dateApplied: "2023-04-01", status: "applied", notes: "Applied through referral" },
-    { id: 2, company: "Amazon", role: "Full Stack Developer", pay: "$130,000 - $160,000", dateApplied: "2023-04-05", status: "applied", notes: "Applied through website" },
-    { id: 3, company: "Microsoft", role: "React Developer", pay: "$125,000 - $155,000", dateApplied: "2023-04-10", status: "applied", notes: "Applied through LinkedIn" },
+    { id: 1, company: "Google", role: "Frontend Engineer", pay: "$120,000 - $150,000", dateApplied: "2023-04-01", status: "applied" as JobStatus, notes: "Applied through referral" },
+    { id: 2, company: "Amazon", role: "Full Stack Developer", pay: "$130,000 - $160,000", dateApplied: "2023-04-05", status: "applied" as JobStatus, notes: "Applied through website" },
+    { id: 3, company: "Microsoft", role: "React Developer", pay: "$125,000 - $155,000", dateApplied: "2023-04-10", status: "applied" as JobStatus, notes: "Applied through LinkedIn" },
   ],
   interview: [
-    { id: 4, company: "Facebook", role: "Senior Frontend Engineer", pay: "$150,000 - $180,000", dateApplied: "2023-03-15", status: "interview", notes: "First round on April 20" },
-    { id: 5, company: "Twitter", role: "UI Developer", pay: "$130,000 - $160,000", dateApplied: "2023-03-20", status: "interview", notes: "Technical interview scheduled" },
+    { id: 4, company: "Facebook", role: "Senior Frontend Engineer", pay: "$150,000 - $180,000", dateApplied: "2023-03-15", status: "interview" as JobStatus, notes: "First round on April 20" },
+    { id: 5, company: "Twitter", role: "UI Developer", pay: "$130,000 - $160,000", dateApplied: "2023-03-20", status: "interview" as JobStatus, notes: "Technical interview scheduled" },
   ],
   offered: [
-    { id: 6, company: "Netflix", role: "Frontend Architect", pay: "$180,000 - $210,000", dateApplied: "2023-02-10", status: "offered", notes: "Offer received, negotiating" },
+    { id: 6, company: "Netflix", role: "Frontend Architect", pay: "$180,000 - $210,000", dateApplied: "2023-02-10", status: "offered" as JobStatus, notes: "Offer received, negotiating" },
   ],
   rejected: [
-    { id: 7, company: "Apple", role: "JavaScript Developer", pay: "$140,000 - $170,000", dateApplied: "2023-01-05", status: "rejected", notes: "Rejected after final round" },
-    { id: 8, company: "Airbnb", role: "Frontend Engineer", pay: "$135,000 - $165,000", dateApplied: "2023-01-15", status: "rejected", notes: "Position was filled" },
+    { id: 7, company: "Apple", role: "JavaScript Developer", pay: "$140,000 - $170,000", dateApplied: "2023-01-05", status: "rejected" as JobStatus, notes: "Rejected after final round" },
+    { id: 8, company: "Airbnb", role: "Frontend Engineer", pay: "$135,000 - $165,000", dateApplied: "2023-01-15", status: "rejected" as JobStatus, notes: "Position was filled" },
   ],
 };
 
@@ -47,7 +47,7 @@ const statusColors = {
 };
 
 const JobStatusPage = () => {
-  const { status } = useParams<{ status: "applied" | "interview" | "offered" | "rejected" }>();
+  const { status } = useParams<{ status: string }>();
   const navigate = useNavigate();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
@@ -57,24 +57,24 @@ const JobStatusPage = () => {
     role: "",
     pay: "",
     dateApplied: new Date().toISOString().split('T')[0],
-    status: status || "applied",
+    status: (status || "applied") as JobStatus,
     notes: "",
   });
 
-  // Safety check
   if (!status || !["applied", "interview", "offered", "rejected"].includes(status)) {
     navigate("/job-tracker");
     return null;
   }
 
-  const jobs = mockJobs[status as keyof typeof mockJobs] || [];
-  const statusTitle = statusTitles[status as keyof typeof statusTitles] || "Jobs";
-  const statusColor = statusColors[status as keyof typeof statusColors] || "blue";
+  const validStatus = status as JobStatus;
+  const jobs = mockJobs[validStatus] || [];
+  const statusTitle = statusTitles[validStatus] || "Jobs";
+  const statusColor = statusColors[validStatus] || "blue";
 
   const handleOpenDialog = () => {
     setFormData({
       ...formData,
-      status: status || "applied",
+      status: validStatus,
     });
     setIsDialogOpen(true);
   };
@@ -98,19 +98,17 @@ const JobStatusPage = () => {
   };
 
   const handleStatusChange = (value: string) => {
-    setFormData({ ...formData, status: value });
+    setFormData({ ...formData, status: value as JobStatus });
   };
 
   const handleAddJob = (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real app, you would add the job to your database
     toast.success("Job added successfully!");
     setIsDialogOpen(false);
   };
 
   const handleUpdateJob = (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real app, you would update the job in your database
     if (formData.status !== status) {
       toast.success(`Job moved to ${formData.status} status!`);
     } else {
@@ -120,7 +118,6 @@ const JobStatusPage = () => {
   };
 
   const handleDeleteJob = () => {
-    // In a real app, you would delete the job from your database
     toast.success("Job removed successfully!");
     setIsEditDialogOpen(false);
   };
@@ -206,7 +203,6 @@ const JobStatusPage = () => {
         </div>
       )}
 
-      {/* Add Job Dialog */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent className="sm:max-w-[500px]">
           <DialogHeader>
@@ -303,7 +299,6 @@ const JobStatusPage = () => {
         </DialogContent>
       </Dialog>
 
-      {/* Edit Job Dialog */}
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
         <DialogContent className="sm:max-w-[500px]">
           <DialogHeader>
