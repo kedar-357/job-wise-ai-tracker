@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -9,49 +10,16 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import { PlusCircle, Trash2, Edit } from "lucide-react";
-import { toast } from "sonner";
-
-type JobStatus = "applied" | "interview" | "offered" | "rejected";
-
-const mockJobs = {
-  applied: [
-    { id: 1, company: "Google", role: "Frontend Engineer", pay: "$120,000 - $150,000", dateApplied: "2023-04-01", status: "applied" as JobStatus, notes: "Applied through referral" },
-    { id: 2, company: "Amazon", role: "Full Stack Developer", pay: "$130,000 - $160,000", dateApplied: "2023-04-05", status: "applied" as JobStatus, notes: "Applied through website" },
-    { id: 3, company: "Microsoft", role: "React Developer", pay: "$125,000 - $155,000", dateApplied: "2023-04-10", status: "applied" as JobStatus, notes: "Applied through LinkedIn" },
-  ],
-  interview: [
-    { id: 4, company: "Facebook", role: "Senior Frontend Engineer", pay: "$150,000 - $180,000", dateApplied: "2023-03-15", status: "interview" as JobStatus, notes: "First round on April 20" },
-    { id: 5, company: "Twitter", role: "UI Developer", pay: "$130,000 - $160,000", dateApplied: "2023-03-20", status: "interview" as JobStatus, notes: "Technical interview scheduled" },
-  ],
-  offered: [
-    { id: 6, company: "Netflix", role: "Frontend Architect", pay: "$180,000 - $210,000", dateApplied: "2023-02-10", status: "offered" as JobStatus, notes: "Offer received, negotiating" },
-  ],
-  rejected: [
-    { id: 7, company: "Apple", role: "JavaScript Developer", pay: "$140,000 - $170,000", dateApplied: "2023-01-05", status: "rejected" as JobStatus, notes: "Rejected after final round" },
-    { id: 8, company: "Airbnb", role: "Frontend Engineer", pay: "$135,000 - $165,000", dateApplied: "2023-01-15", status: "rejected" as JobStatus, notes: "Position was filled" },
-  ],
-};
-
-const statusTitles = {
-  applied: "Applied Jobs",
-  interview: "Interview Stage",
-  offered: "Job Offers",
-  rejected: "Rejected Applications",
-};
-
-const statusColors = {
-  applied: "blue",
-  interview: "amber",
-  offered: "green",
-  rejected: "red",
-};
+import { useJobs, JobStatus, Job } from "@/contexts/JobContext";
 
 const JobStatusPage = () => {
   const { status } = useParams<{ status: string }>();
   const navigate = useNavigate();
+  const { getJobsByStatus, addJob, updateJob, deleteJob } = useJobs();
+  
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-  const [selectedJob, setSelectedJob] = useState<any>(null);
+  const [selectedJob, setSelectedJob] = useState<Job | null>(null);
   const [formData, setFormData] = useState({
     company: "",
     role: "",
@@ -67,19 +35,27 @@ const JobStatusPage = () => {
   }
 
   const validStatus = status as JobStatus;
-  const jobs = mockJobs[validStatus] || [];
-  const statusTitle = statusTitles[validStatus] || "Jobs";
-  const statusColor = statusColors[validStatus] || "blue";
+  const jobs = getJobsByStatus(validStatus);
+  const statusTitle = {
+    applied: "Applied Jobs",
+    interview: "Interview Stage",
+    offered: "Job Offers",
+    rejected: "Rejected Applications",
+  }[validStatus] || "Jobs";
 
   const handleOpenDialog = () => {
     setFormData({
-      ...formData,
+      company: "",
+      role: "",
+      pay: "",
+      dateApplied: new Date().toISOString().split('T')[0],
       status: validStatus,
+      notes: "",
     });
     setIsDialogOpen(true);
   };
 
-  const handleEditJob = (job: any) => {
+  const handleEditJob = (job: Job) => {
     setSelectedJob(job);
     setFormData({
       company: job.company,
@@ -103,22 +79,28 @@ const JobStatusPage = () => {
 
   const handleAddJob = (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Job added successfully!");
+    addJob(formData);
     setIsDialogOpen(false);
   };
 
   const handleUpdateJob = (e: React.FormEvent) => {
     e.preventDefault();
-    if (formData.status !== status) {
-      toast.success(`Job moved to ${formData.status} status!`);
-    } else {
-      toast.success("Job updated successfully!");
+    if (selectedJob) {
+      const updatedJob = { ...formData, id: selectedJob.id };
+      updateJob(updatedJob);
+      
+      // If status changed, navigate to the new status page
+      if (formData.status !== status) {
+        navigate(`/job-tracker/${formData.status}`);
+      }
     }
     setIsEditDialogOpen(false);
   };
 
   const handleDeleteJob = () => {
-    toast.success("Job removed successfully!");
+    if (selectedJob) {
+      deleteJob(selectedJob.id);
+    }
     setIsEditDialogOpen(false);
   };
 
@@ -143,7 +125,7 @@ const JobStatusPage = () => {
         </div>
         <Button 
           onClick={handleOpenDialog}
-          className={`bg-${statusColor}-500 hover:bg-${statusColor}-600`}
+          className={`bg-${status === "applied" ? "blue" : status === "interview" ? "amber" : status === "offered" ? "green" : "red"}-500 hover:bg-${status === "applied" ? "blue" : status === "interview" ? "amber" : status === "offered" ? "green" : "red"}-600`}
         >
           <PlusCircle className="mr-2 h-4 w-4" />
           Add Job

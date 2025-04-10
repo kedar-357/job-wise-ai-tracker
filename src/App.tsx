@@ -13,6 +13,7 @@ import JDAnalysis from "./pages/JDAnalysis";
 import Analytics from "./pages/Analytics";
 import AppLayout from "./components/AppLayout";
 import NotFound from "./pages/NotFound";
+import { JobProvider } from "./contexts/JobContext";
 
 // Add framer-motion
 import { motion, AnimatePresence } from "framer-motion";
@@ -22,27 +23,29 @@ const queryClient = new QueryClient();
 const App = () => (
   <BrowserRouter>
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <AnimatePresence mode="wait">
-          <Routes>
-            <Route path="/" element={<Navigate to="/auth" />} />
-            <Route path="/auth" element={<Auth />} />
-            
-            <Route element={<AppLayout />}>
-              <Route path="/home" element={<Home />} />
-              <Route path="/job-tracker" element={<JobTracker />} />
-              <Route path="/job-tracker/:status" element={<JobStatusPage />} />
-              <Route path="/resume-feedback" element={<ResumeFeedback />} />
-              <Route path="/jd-analysis" element={<JDAnalysis />} />
-              <Route path="/analytics" element={<Analytics />} />
-            </Route>
-            
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </AnimatePresence>
-      </TooltipProvider>
+      <JobProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <AnimatePresence mode="wait">
+            <Routes>
+              <Route path="/" element={<Navigate to="/auth" />} />
+              <Route path="/auth" element={<Auth />} />
+              
+              <Route element={<AppLayout />}>
+                <Route path="/home" element={<Home />} />
+                <Route path="/job-tracker" element={<JobTracker />} />
+                <Route path="/job-tracker/:status" element={<JobStatusPage />} />
+                <Route path="/resume-feedback" element={<ResumeFeedback />} />
+                <Route path="/jd-analysis" element={<JDAnalysis />} />
+                <Route path="/analytics" element={<Analytics />} />
+              </Route>
+              
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </AnimatePresence>
+        </TooltipProvider>
+      </JobProvider>
     </QueryClientProvider>
   </BrowserRouter>
 );

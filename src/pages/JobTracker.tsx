@@ -7,8 +7,11 @@ import {
   BadgeCheck, 
   XCircle 
 } from "lucide-react";
+import { useJobs, JobStatus } from "@/contexts/JobContext";
 
 const JobTracker = () => {
+  const { getJobsByStatus } = useJobs();
+
   const trackerCategories = [
     {
       id: "applied",
@@ -17,6 +20,7 @@ const JobTracker = () => {
       icon: Send,
       color: "from-blue-400 to-blue-600",
       path: "/job-tracker/applied",
+      count: getJobsByStatus("applied").length,
     },
     {
       id: "interview",
@@ -25,6 +29,7 @@ const JobTracker = () => {
       icon: MessageSquare,
       color: "from-amber-400 to-amber-600",
       path: "/job-tracker/interview",
+      count: getJobsByStatus("interview").length,
     },
     {
       id: "offered",
@@ -33,6 +38,7 @@ const JobTracker = () => {
       icon: BadgeCheck,
       color: "from-green-400 to-green-600",
       path: "/job-tracker/offered",
+      count: getJobsByStatus("offered").length,
     },
     {
       id: "rejected",
@@ -41,6 +47,7 @@ const JobTracker = () => {
       icon: XCircle,
       color: "from-red-400 to-red-600",
       path: "/job-tracker/rejected",
+      count: getJobsByStatus("rejected").length,
     },
   ];
 
@@ -68,7 +75,12 @@ const JobTracker = () => {
               className={`h-full w-full flex flex-col justify-between p-6 bg-gradient-to-br ${category.color} text-white`}
             >
               <div className="flex justify-between items-start">
-                <h2 className="text-2xl font-bold">{category.title}</h2>
+                <div>
+                  <h2 className="text-2xl font-bold">{category.title}</h2>
+                  <div className="bg-white/20 text-white px-2 py-1 rounded-full text-sm inline-block mt-1">
+                    {category.count} job{category.count !== 1 ? 's' : ''}
+                  </div>
+                </div>
                 <category.icon className="h-10 w-10 opacity-90" />
               </div>
               <div>
