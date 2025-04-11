@@ -101,6 +101,24 @@
   .dark .glass-card {
     @apply bg-black/30 backdrop-blur-md border border-white/10 shadow-md hover:shadow-lg;
   }
+  
+  /* Job tiles grid styles */
+  .job-tiles-container {
+    @apply w-full;
+  }
+  
+  .job-tiles-container .grid {
+    @apply gap-6 !important;
+  }
+  
+  /* Ensure job cards don't overlap in Job Status pages */
+  [class*="JobStatusPage"] .grid {
+    @apply gap-6 md:gap-8 !important;
+  }
+  
+  [class*="JobStatusPage"] .card {
+    @apply mb-6 !important;
+  }
 }
 
 #root {

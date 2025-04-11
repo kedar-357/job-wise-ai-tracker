@@ -9,7 +9,7 @@ const AppLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white to-jobwise-light/30 flex">
+    <div className="min-h-screen bg-gradient-to-br from-white to-jobwise-light/30 dark:from-jobwise-dark dark:to-black dark:text-white flex">
       <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
       
       <div className="flex-1 flex flex-col h-screen overflow-hidden">
@@ -19,14 +19,17 @@ const AppLayout = () => {
             variant="ghost" 
             size="icon" 
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="bg-white/80 hover:bg-white"
+            className="bg-white/80 hover:bg-white dark:bg-jobwise-dark/50 dark:hover:bg-jobwise-dark/80"
           >
-            <Menu className="h-5 w-5 text-jobwise-medium" />
+            <Menu className="h-5 w-5 text-jobwise-medium dark:text-white" />
           </Button>
         </div>
         
         <main className="flex-1 overflow-auto p-4 md:p-6">
-          <Outlet />
+          {/* Add a CSS class to the Outlet that will be applied to all pages */}
+          <div className="job-tiles-container">
+            <Outlet />
+          </div>
         </main>
       </div>
     </div>
