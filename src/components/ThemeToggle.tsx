@@ -12,7 +12,7 @@ const ThemeToggle = ({ className }: { className?: string }) => {
       variant="ghost" 
       size="icon" 
       onClick={toggleTheme}
-      className={className}
+      className={`${className || 'bg-white/10 border border-white/20 text-white hover:bg-white/20'}`}
       aria-label="Toggle theme"
     >
       <motion.div

@@ -9,7 +9,7 @@ const AppLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white to-jobwise-light/30 dark:from-jobwise-dark dark:to-black dark:text-white flex">
+    <div className="min-h-screen bg-gradient-to-br from-jobwise-dark to-black text-white flex">
       <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
       
       <div className="flex-1 flex flex-col h-screen overflow-hidden">
@@ -19,9 +19,9 @@ const AppLayout = () => {
             variant="ghost" 
             size="icon" 
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="bg-white/80 hover:bg-white dark:bg-jobwise-dark/50 dark:hover:bg-jobwise-dark/80"
+            className="bg-jobwise-dark/50 hover:bg-jobwise-dark/80"
           >
-            <Menu className="h-5 w-5 text-jobwise-medium dark:text-white" />
+            <Menu className="h-5 w-5 text-white" />
           </Button>
         </div>
         

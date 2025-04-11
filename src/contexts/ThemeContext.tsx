@@ -22,7 +22,8 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [theme, setTheme] = useState<Theme>(() => {
     // Check for saved theme in localStorage
     const savedTheme = localStorage.getItem("jobwise-theme");
-    return (savedTheme as Theme) || "light";
+    // Default to dark theme
+    return (savedTheme as Theme) || "dark";
   });
 
   // Apply theme when it changes
