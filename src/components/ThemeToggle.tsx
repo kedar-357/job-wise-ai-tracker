@@ -20,11 +20,12 @@ const ThemeToggle = ({ className }: { className?: string }) => {
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.8, opacity: 0 }}
         key={theme}
+        className="w-5 h-5 flex items-center justify-center"
       >
         {theme === "light" ? (
-          <Moon className="h-5 w-5" />
+          <Moon className="h-4 w-4" />
         ) : (
-          <Sun className="h-5 w-5" />
+          <Sun className="h-4 w-4" />
         )}
       </motion.div>
     </Button>
