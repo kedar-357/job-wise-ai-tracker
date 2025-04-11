@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -24,19 +25,23 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-jobwise-light via-jobwise to-jobwise-medium p-4">
+    <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-jobwise-light via-jobwise to-jobwise-medium p-4 dark:from-jobwise-dark dark:via-gray-900 dark:to-black">
+      <div className="absolute top-4 right-4">
+        <ThemeToggle className="bg-white/20 text-white hover:bg-white/30 hover:text-white" />
+      </div>
+      
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         className="w-full max-w-md"
       >
-        <Card className="glass border-jobwise-light">
+        <Card className="glass border-jobwise-light dark:bg-jobwise-dark/70 dark:border-jobwise-medium/30">
           <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl text-center text-jobwise-dark">
+            <CardTitle className="text-2xl text-center text-jobwise-dark dark:text-white">
               {isLogin ? "Welcome Back" : "Create an Account"}
             </CardTitle>
-            <CardDescription className="text-center">
+            <CardDescription className="text-center dark:text-gray-300">
               {isLogin
                 ? "Enter your credentials to access your account"
                 : "Enter your information to create an account"}
@@ -46,19 +51,19 @@ const Auth = () => {
             <form onSubmit={handleSubmit} className="space-y-4">
               {!isLogin && (
                 <div className="space-y-2">
-                  <Label htmlFor="name">Full Name</Label>
+                  <Label htmlFor="name" className="dark:text-white">Full Name</Label>
                   <Input 
                     id="name" 
                     placeholder="John Doe" 
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required 
-                    className="border-jobwise"
+                    className="border-jobwise dark:bg-jobwise-dark/50 dark:border-jobwise-medium/30 dark:text-white"
                   />
                 </div>
               )}
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email" className="dark:text-white">Email</Label>
                 <Input 
                   id="email" 
                   type="email" 
@@ -66,11 +71,11 @@ const Auth = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required 
-                  className="border-jobwise"
+                  className="border-jobwise dark:bg-jobwise-dark/50 dark:border-jobwise-medium/30 dark:text-white"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password" className="dark:text-white">Password</Label>
                 <Input 
                   id="password" 
                   type="password" 
@@ -78,20 +83,20 @@ const Auth = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required 
-                  className="border-jobwise"
+                  className="border-jobwise dark:bg-jobwise-dark/50 dark:border-jobwise-medium/30 dark:text-white"
                 />
               </div>
-              <Button type="submit" className="w-full bg-jobwise-medium hover:bg-jobwise-dark">
+              <Button type="submit" className="w-full bg-jobwise-medium hover:bg-jobwise-dark text-white dark:bg-jobwise-dark dark:hover:bg-jobwise-medium">
                 {isLogin ? "Login" : "Register"}
               </Button>
             </form>
           </CardContent>
           <CardFooter className="flex flex-col">
-            <div className="text-sm text-center text-gray-500 mt-2">
+            <div className="text-sm text-center text-gray-500 mt-2 dark:text-gray-400">
               {isLogin ? "Don't have an account? " : "Already have an account? "}
               <a
                 href="#"
-                className="text-jobwise-medium hover:text-jobwise-dark underline"
+                className="text-jobwise-medium hover:text-jobwise-dark underline dark:text-jobwise-light dark:hover:text-white"
                 onClick={(e) => {
                   e.preventDefault();
                   setIsLogin(!isLogin);

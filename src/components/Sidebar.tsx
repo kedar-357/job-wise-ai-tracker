@@ -2,6 +2,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import ThemeToggle from "./ThemeToggle";
 import { 
   Home, 
   Briefcase, 
@@ -9,8 +10,11 @@ import {
   Search, 
   BarChart, 
   User,
-  ChevronLeft
+  ChevronLeft,
+  LogOut
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -19,6 +23,7 @@ interface SidebarProps {
 
 const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
   const location = useLocation();
+  const navigate = useNavigate();
   
   const navigationItems = [
     { path: "/home", label: "Home", icon: Home },
@@ -28,10 +33,15 @@ const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
     { path: "/analytics", label: "Analytics", icon: BarChart },
   ];
 
+  const handleLogout = () => {
+    toast.success("Logged out successfully!");
+    navigate("/");
+  };
+
   return (
     <div 
       className={cn(
-        "fixed inset-y-0 left-0 z-50 flex flex-col bg-gradient-to-b from-jobwise-dark to-jobwise-medium text-white transition-all duration-300 ease-in-out lg:relative",
+        "fixed inset-y-0 left-0 z-50 flex flex-col bg-gradient-to-b from-jobwise-dark to-jobwise-medium text-white transition-all duration-300 ease-in-out lg:relative dark:from-gray-900 dark:to-gray-800",
         isOpen ? "w-64" : "w-20",
         !isOpen && "items-center"
       )}
@@ -63,7 +73,7 @@ const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
             to={item.path}
             className={cn(
               "flex items-center gap-3 px-3 py-2 rounded-lg transition-colors",
-              location.pathname === item.path
+              location.pathname === item.path || location.pathname.startsWith(`${item.path}/`)
                 ? "bg-white/20 text-white"
                 : "text-white/70 hover:bg-white/10 hover:text-white",
               !isOpen && "justify-center px-2"
@@ -76,6 +86,31 @@ const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
       </div>
 
       <div className="p-4 border-t border-white/10">
+        <div className="flex items-center justify-between mb-4">
+          {isOpen ? (
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              onClick={handleLogout}
+              className="text-white/80 hover:text-white hover:bg-white/10 px-3"
+            >
+              <LogOut className="h-4 w-4 mr-2" />
+              Logout
+            </Button>
+          ) : (
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={handleLogout}
+              className="text-white/80 hover:text-white hover:bg-white/10"
+            >
+              <LogOut className="h-4 w-4" />
+            </Button>
+          )}
+          
+          <ThemeToggle className="text-white/80 hover:text-white hover:bg-white/10" />
+        </div>
+        
         <div 
           className={cn(
             "flex items-center gap-3",
