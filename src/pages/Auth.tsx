@@ -6,10 +6,11 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import ThemeToggle from "@/components/ThemeToggle";
-import { Mail, Globe } from "lucide-react";
+import { Mail, Globe, ArrowRight } from "lucide-react";
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -20,6 +21,14 @@ const Auth = () => {
     // For demo purposes, just navigate to home
     toast.success(isLogin ? "Logged in successfully!" : "Registered successfully!");
     navigate("/home");
+  };
+
+  const toggleAuthMode = () => {
+    setIsLogin(!isLogin);
+    // Reset form when switching modes
+    setName("");
+    setEmail("");
+    setPassword("");
   };
 
   return (
@@ -99,31 +108,51 @@ const Auth = () => {
           transition={{ duration: 0.5 }}
         >
           <div className="text-center mb-12 text-white space-y-1">
-            <h1 className="text-3xl font-bold">SIGN IN</h1>
-            <p className="text-xs text-white/60">Sign in with email address</p>
+            <h1 className="text-3xl font-bold">{isLogin ? "SIGN IN" : "SIGN UP"}</h1>
+            <p className="text-xs text-white/90">{isLogin ? "Sign in with email address" : "Create a new account"}</p>
           </div>
           
           <form onSubmit={handleSubmit} className="space-y-4">
+            {!isLogin && (
+              <Input
+                type="text"
+                placeholder="Your name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+                className="bg-jobwise-dark/50 border-purple-800/30 text-white placeholder:text-white/60 py-6"
+              />
+            )}
+            
             <Input
               type="email"
               placeholder="Your email address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="bg-jobwise-dark/50 border-purple-800/30 text-white placeholder:text-white/40 py-6"
+              className="bg-jobwise-dark/50 border-purple-800/30 text-white placeholder:text-white/60 py-6"
+            />
+            
+            <Input
+              type="password"
+              placeholder="Your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              className="bg-jobwise-dark/50 border-purple-800/30 text-white placeholder:text-white/60 py-6"
             />
             
             <Button 
               type="submit" 
               className="auth-btn primary-btn"
             >
-              Sign up
+              {isLogin ? "Sign in" : "Sign up"}
             </Button>
             
             <div className="flex items-center gap-2 pt-4">
-              <div className="flex-1 h-[1px] bg-white/10"></div>
-              <span className="text-xs text-white/40">Or continue with</span>
-              <div className="flex-1 h-[1px] bg-white/10"></div>
+              <div className="flex-1 h-[1px] bg-white/20"></div>
+              <span className="text-xs text-white/70">Or continue with</span>
+              <div className="flex-1 h-[1px] bg-white/20"></div>
             </div>
             
             <div className="grid grid-cols-2 gap-3 pt-2">
@@ -137,8 +166,20 @@ const Auth = () => {
               </Button>
             </div>
             
-            <div className="text-xs text-center text-white/40 pt-6">
+            <div className="text-xs text-center text-white/70 pt-6">
               By signing in you agree to our <a href="#" className="underline">Terms and Conditions</a>
+            </div>
+            
+            <div className="pt-4 text-center">
+              <Button 
+                type="button" 
+                variant="link" 
+                className="text-white/80 hover:text-white text-sm flex items-center mx-auto"
+                onClick={toggleAuthMode}
+              >
+                {isLogin ? "Don't have an account? Sign up" : "Already have an account? Sign in"}
+                <ArrowRight className="ml-1 h-3 w-3" />
+              </Button>
             </div>
           </form>
         </motion.div>
@@ -155,7 +196,7 @@ const Auth = () => {
           {/* Left side - message */}
           <div className="flex flex-col justify-center items-start p-8">
             <div className="text-white space-y-6">
-              <h1 className="text-4xl font-bold">SIGN IN TO YOUR</h1>
+              <h1 className="text-4xl font-bold">{isLogin ? "WELCOME BACK" : "JOIN OUR"}</h1>
               <h1 className="text-4xl font-bold text-purple-400">ADVENTURE!</h1>
             </div>
           </div>
@@ -163,31 +204,51 @@ const Auth = () => {
           {/* Right side - form */}
           <div className="space-card p-8 rounded-2xl backdrop-blur-md flex flex-col justify-center">
             <div className="mb-8 text-white space-y-1">
-              <h2 className="text-3xl font-bold">SIGN IN</h2>
-              <p className="text-sm text-white/60">Sign in with email address</p>
+              <h2 className="text-3xl font-bold">{isLogin ? "SIGN IN" : "SIGN UP"}</h2>
+              <p className="text-sm text-white/90">{isLogin ? "Sign in with email address" : "Create a new account"}</p>
             </div>
             
             <form onSubmit={handleSubmit} className="space-y-5">
+              {!isLogin && (
+                <Input
+                  type="text"
+                  placeholder="Your name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                  className="bg-jobwise-dark/50 border-purple-800/30 text-white placeholder:text-white/60 py-6"
+                />
+              )}
+              
               <Input
                 type="email"
                 placeholder="Your email address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="bg-jobwise-dark/50 border-purple-800/30 text-white placeholder:text-white/40 py-6"
+                className="bg-jobwise-dark/50 border-purple-800/30 text-white placeholder:text-white/60 py-6"
+              />
+              
+              <Input
+                type="password"
+                placeholder="Your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="bg-jobwise-dark/50 border-purple-800/30 text-white placeholder:text-white/60 py-6"
               />
               
               <Button 
                 type="submit" 
                 className="auth-btn primary-btn"
               >
-                Sign up
+                {isLogin ? "Sign in" : "Sign up"}
               </Button>
               
               <div className="flex items-center gap-2 pt-4">
-                <div className="flex-1 h-[1px] bg-white/10"></div>
-                <span className="text-xs text-white/40">Or continue with</span>
-                <div className="flex-1 h-[1px] bg-white/10"></div>
+                <div className="flex-1 h-[1px] bg-white/20"></div>
+                <span className="text-xs text-white/70">Or continue with</span>
+                <div className="flex-1 h-[1px] bg-white/20"></div>
               </div>
               
               <div className="grid grid-cols-2 gap-3 pt-2">
@@ -201,8 +262,20 @@ const Auth = () => {
                 </Button>
               </div>
               
-              <div className="text-xs text-center text-white/40 pt-4">
+              <div className="text-xs text-center text-white/70 pt-4">
                 By signing in you agree to our <a href="#" className="underline">Terms and Conditions</a>
+              </div>
+              
+              <div className="pt-4 text-center">
+                <Button 
+                  type="button" 
+                  variant="link" 
+                  className="text-white/80 hover:text-white text-sm flex items-center mx-auto"
+                  onClick={toggleAuthMode}
+                >
+                  {isLogin ? "Don't have an account? Sign up" : "Already have an account? Sign in"}
+                  <ArrowRight className="ml-1 h-3 w-3" />
+                </Button>
               </div>
             </form>
           </div>

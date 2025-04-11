@@ -78,8 +78,8 @@ const Analytics = () => {
   return (
     <div className="container mx-auto max-w-6xl px-4 py-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-jobwise-dark mb-2">Analytics Dashboard</h1>
-        <p className="text-gray-600">
+        <h1 className="text-3xl font-bold text-white mb-2">Analytics Dashboard</h1>
+        <p className="text-white/90">
           Track your application progress and gain insights to improve your job search
         </p>
       </div>
@@ -98,10 +98,10 @@ const Analytics = () => {
       {/* Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         {[
-          { title: "Total Applications", value: "50", change: "+5", color: "bg-jobwise-light" },
-          { title: "Interview Rate", value: "24%", change: "+2%", color: "bg-blue-100" },
-          { title: "Offer Rate", value: "6%", change: "+1%", color: "bg-green-100" },
-          { title: "Avg. Response Time", value: "12 days", change: "-2 days", color: "bg-amber-100" },
+          { title: "Total Applications", value: "50", change: "+5", color: "bg-jobwise-light/20" },
+          { title: "Interview Rate", value: "24%", change: "+2%", color: "bg-blue-500/20" },
+          { title: "Offer Rate", value: "6%", change: "+1%", color: "bg-green-500/20" },
+          { title: "Avg. Response Time", value: "12 days", change: "-2 days", color: "bg-amber-500/20" },
         ].map((card, index) => (
           <motion.div
             key={index}
@@ -109,13 +109,13 @@ const Analytics = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: index * 0.1 }}
           >
-            <Card>
+            <Card className="border-none rounded-2xl overflow-hidden shadow-lg">
               <CardContent className={`p-6 ${card.color}`}>
                 <div className="flex flex-col gap-1">
-                  <p className="text-sm font-medium text-gray-500">{card.title}</p>
+                  <p className="text-sm font-medium text-white/80">{card.title}</p>
                   <div className="flex items-end justify-between">
-                    <h3 className="text-2xl font-bold text-jobwise-dark">{card.value}</h3>
-                    <p className={`text-sm font-medium ${card.change.startsWith('+') ? 'text-green-600' : 'text-red-600'}`}>
+                    <h3 className="text-2xl font-bold text-white">{card.value}</h3>
+                    <p className={`text-sm font-medium ${card.change.startsWith('+') ? 'text-green-400' : 'text-red-400'}`}>
                       {card.change}
                     </p>
                   </div>
@@ -134,10 +134,10 @@ const Analytics = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
         >
-          <Card className="h-full">
+          <Card className="h-full border-none rounded-2xl overflow-hidden shadow-lg">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-lg font-bold text-jobwise-dark">Application Status</CardTitle>
-              <PieChart className="h-4 w-4 text-gray-500" />
+              <CardTitle className="text-lg font-bold text-white">Application Status</CardTitle>
+              <PieChart className="h-4 w-4 text-white/80" />
             </CardHeader>
             <CardContent className="pt-2">
               <div className="h-[300px] flex items-center justify-center">
@@ -171,10 +171,10 @@ const Analytics = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.1 }}
         >
-          <Card className="h-full">
+          <Card className="h-full border-none rounded-2xl overflow-hidden shadow-lg">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-lg font-bold text-jobwise-dark">Applications Over Time</CardTitle>
-              <LineChart className="h-4 w-4 text-gray-500" />
+              <CardTitle className="text-lg font-bold text-white">Applications Over Time</CardTitle>
+              <LineChart className="h-4 w-4 text-white/80" />
             </CardHeader>
             <CardContent className="pt-2">
               <div className="h-[300px]">
@@ -211,10 +211,10 @@ const Analytics = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.2 }}
         >
-          <Card className="h-full">
+          <Card className="h-full border-none rounded-2xl overflow-hidden shadow-lg">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-lg font-bold text-jobwise-dark">Applications by Role</CardTitle>
-              <BarChart className="h-4 w-4 text-gray-500" />
+              <CardTitle className="text-lg font-bold text-white">Applications by Role</CardTitle>
+              <BarChart className="h-4 w-4 text-white/80" />
             </CardHeader>
             <CardContent className="pt-2">
               <div className="h-[300px]">
@@ -241,17 +241,17 @@ const Analytics = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.3 }}
         >
-          <Card className="h-full">
+          <Card className="h-full border-none rounded-2xl overflow-hidden shadow-lg">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-lg font-bold text-jobwise-dark">Insights & Tips</CardTitle>
-              <Lightbulb className="h-4 w-4 text-amber-500" />
+              <CardTitle className="text-lg font-bold text-white">Insights & Tips</CardTitle>
+              <Lightbulb className="h-4 w-4 text-amber-400" />
             </CardHeader>
             <CardContent className="pt-2">
               <div className="space-y-4">
                 {insights.map((insight, index) => (
-                  <div key={index} className="p-3 bg-jobwise-light/20 rounded-lg border border-jobwise-light/30">
-                    <h3 className="font-medium text-jobwise-dark">{insight.title}</h3>
-                    <p className="text-sm text-gray-600 mt-1">{insight.description}</p>
+                  <div key={index} className="p-3 bg-jobwise-light/10 rounded-lg border border-jobwise-light/30">
+                    <h3 className="font-medium text-white">{insight.title}</h3>
+                    <p className="text-sm text-white/80 mt-1">{insight.description}</p>
                   </div>
                 ))}
               </div>

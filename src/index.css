@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
 
 @tailwind base;
@@ -40,32 +39,32 @@
 
   .dark {
     --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
+    --foreground: 0 0% 100%;  /* Made whiter */
 
     --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
+    --card-foreground: 0 0% 100%;  /* Made whiter */
 
     --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
+    --popover-foreground: 0 0% 100%;  /* Made whiter */
 
     --primary: 240 5% 18%;
-    --primary-foreground: 0 0% 98%;
+    --primary-foreground: 0 0% 100%;  /* Made whiter */
 
     --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary-foreground: 0 0% 100%;  /* Made whiter */
 
     --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
+    --muted-foreground: 240 5% 90%;  /* Made whiter */
 
     --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
+    --accent-foreground: 0 0% 100%;  /* Made whiter */
 
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive-foreground: 0 0% 100%;  /* Made whiter */
 
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
+    --ring: 240 4.9% 95%;  /* Made whiter */
   }
 }
 
@@ -148,6 +147,24 @@
   
   .planet {
     @apply absolute rounded-full backdrop-blur-md shadow-lg;
+  }
+
+  /* Improved text visibility for all components */
+  p, span, div, a {
+    @apply text-white/90;  /* Improved default text visibility */
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-white;  /* Full white headings */
+  }
+
+  label {
+    @apply text-white/90;  /* Improved label visibility */
+  }
+
+  /* Analytics card improvements */
+  .card {
+    @apply rounded-2xl border-none;  /* Rounded corners, no border */
   }
 }
 
