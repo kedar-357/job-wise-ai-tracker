@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import ThemeToggle from "@/components/ThemeToggle";
-import { Google, Facebook } from "lucide-react";
+import { Mail, Globe } from "lucide-react";
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -128,12 +128,12 @@ const Auth = () => {
             
             <div className="grid grid-cols-2 gap-3 pt-2">
               <Button type="button" className="auth-btn social-btn">
-                <Google className="mr-2 h-4 w-4" />
-                Google
+                <Mail className="mr-2 h-4 w-4" />
+                Email
               </Button>
               <Button type="button" className="auth-btn social-btn">
-                <Facebook className="mr-2 h-4 w-4" />
-                Facebook
+                <Globe className="mr-2 h-4 w-4" />
+                Web
               </Button>
             </div>
             
@@ -192,12 +192,12 @@ const Auth = () => {
               
               <div className="grid grid-cols-2 gap-3 pt-2">
                 <Button type="button" className="auth-btn social-btn">
-                  <Google className="mr-2 h-4 w-4" />
-                  Google
+                  <Mail className="mr-2 h-4 w-4" />
+                  Email
                 </Button>
                 <Button type="button" className="auth-btn social-btn">
-                  <Facebook className="mr-2 h-4 w-4" />
-                  Facebook
+                  <Globe className="mr-2 h-4 w-4" />
+                  Web
                 </Button>
               </div>
               
