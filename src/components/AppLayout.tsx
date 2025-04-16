@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
+import Footer from "./Footer";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
 
@@ -31,6 +32,8 @@ const AppLayout = () => {
             <Outlet />
           </div>
         </main>
+        
+        <Footer />
       </div>
     </div>
   );
