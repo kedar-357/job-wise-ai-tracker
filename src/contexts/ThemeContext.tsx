@@ -1,11 +1,10 @@
 
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect } from "react";
 
-type Theme = "light" | "dark";
+type Theme = "dark";
 
 interface ThemeContextType {
   theme: Theme;
-  toggleTheme: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -19,31 +18,22 @@ export const useTheme = () => {
 };
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [theme, setTheme] = useState<Theme>(() => {
-    // Check for saved theme in localStorage
-    const savedTheme = localStorage.getItem("jobwise-theme");
-    // Default to dark theme
-    return (savedTheme as Theme) || "dark";
-  });
+  const theme: Theme = "dark";
 
-  // Apply theme when it changes
+  // Apply theme
   useEffect(() => {
     const root = window.document.documentElement;
     
-    // Remove the old theme class and add the new one
-    root.classList.remove("light", "dark");
-    root.classList.add(theme);
+    // Remove any other theme class and add dark
+    root.classList.remove("light");
+    root.classList.add("dark");
     
-    // Save theme to localStorage
+    // Save to localStorage for consistency
     localStorage.setItem("jobwise-theme", theme);
-  }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
-  };
+  }, []);
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme }}>
       {children}
     </ThemeContext.Provider>
   );

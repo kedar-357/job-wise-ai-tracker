@@ -2,7 +2,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import ThemeToggle from "./ThemeToggle";
 import { 
   Home, 
   Briefcase, 
@@ -94,7 +93,7 @@ const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
               variant="ghost" 
               size="sm" 
               onClick={handleLogout}
-              className="text-white hover:text-white hover:bg-white/10 px-3"
+              className="w-full text-white hover:text-white hover:bg-white/10 px-3"
             >
               <LogOut className="h-4 w-4 mr-2" />
               Logout
@@ -109,8 +108,6 @@ const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
               <LogOut className="h-4 w-4" />
             </Button>
           )}
-          
-          <ThemeToggle className="text-white hover:text-white hover:bg-white/10" />
         </div>
         
         <div 
