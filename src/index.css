@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
 
 @tailwind base;
@@ -137,7 +138,7 @@
     transform-style: preserve-3d;
   }
 
-  /* Improved mobile responsiveness */
+  /* Enhanced mobile responsiveness, especially for 414px width */
   @media (max-width: 640px) {
     h1 {
       @apply text-2xl sm:text-3xl;
@@ -148,9 +149,19 @@
     .container {
       @apply px-3;
     }
+    
+    /* Reduce padding on smaller screens */
+    .p-6 {
+      @apply p-4;
+    }
+    
+    /* Ensure buttons are properly sized */
+    .button, button {
+      @apply text-sm;
+    }
   }
   
-  /* Additional mobile optimizations */
+  /* Specific optimizations for 414px width */
   @media (max-width: 414px) {
     .job-tiles-container .grid {
       @apply gap-3 !important;
@@ -165,11 +176,53 @@
     }
     
     .py-6 {
-      @apply py-4;
+      @apply py-3;
     }
     
     .px-4 {
-      @apply px-3;
+      @apply px-2;
+    }
+    
+    /* Reduce text sizes further */
+    h1 {
+      @apply text-xl;
+    }
+    
+    h2 {
+      @apply text-lg;
+    }
+    
+    p {
+      @apply text-sm;
+    }
+    
+    /* Reduce padding in cards */
+    .card-content {
+      @apply p-3;
+    }
+    
+    /* Ensure buttons are more compact */
+    .button, button {
+      @apply py-1 px-3 text-xs;
+    }
+    
+    /* Make rounded corners slightly smaller */
+    .rounded-xl {
+      @apply rounded-lg;
+    }
+    
+    /* Adjust spacing in flexbox layouts */
+    .gap-4 {
+      @apply gap-2;
+    }
+    
+    .gap-6 {
+      @apply gap-3;
+    }
+    
+    /* Ensure elements don't overflow */
+    .overflow-auto {
+      @apply overflow-x-hidden;
     }
   }
 }
