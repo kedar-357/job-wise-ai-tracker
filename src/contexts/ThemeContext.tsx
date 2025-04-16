@@ -1,10 +1,12 @@
 
 import React, { createContext, useContext, useEffect } from "react";
 
+// We only want to use dark theme, but we need the proper type definition
 type Theme = "dark";
 
 interface ThemeContextType {
   theme: Theme;
+  // We're removing toggleTheme since we only want dark mode
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
