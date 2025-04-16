@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "sonner";
 import { Mail, Lock } from "lucide-react";
-import Footer from "@/components/Footer";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -146,8 +145,6 @@ const Login = () => {
           </div>
         </motion.div>
       </div>
-      
-      <Footer />
     </div>
   );
 };

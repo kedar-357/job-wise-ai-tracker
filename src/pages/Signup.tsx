@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "sonner";
 import { User, Mail, Lock } from "lucide-react";
-import Footer from "@/components/Footer";
 
 const Signup = () => {
   const [name, setName] = useState("");
@@ -157,8 +156,6 @@ const Signup = () => {
           </div>
         </motion.div>
       </div>
-      
-      <Footer />
     </div>
   );
 };

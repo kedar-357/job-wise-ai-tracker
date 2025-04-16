@@ -27,7 +27,7 @@ const AppLayout = () => {
     <div className="min-h-screen bg-gradient-to-br from-jobwise-dark to-black text-white flex">
       <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
       
-      <div className="flex-1 flex flex-col h-screen overflow-hidden">
+      <div className="flex-1 flex flex-col min-h-screen">
         {/* Mobile Menu Button */}
         <div className="lg:hidden absolute top-4 left-4 z-50">
           <Button 
