@@ -1,13 +1,27 @@
 
-import { useState } from "react";
-import { Outlet } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Outlet, useLocation } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import Footer from "./Footer";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const AppLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const location = useLocation();
+  const isMobile = useIsMobile();
+  
+  // Close sidebar by default on mobile
+  useEffect(() => {
+    if (isMobile) {
+      setSidebarOpen(false);
+    }
+  }, [isMobile]);
+
+  // Pages that should not display the footer
+  const noFooterPages = ['/login', '/signup'];
+  const shouldShowFooter = !noFooterPages.includes(location.pathname);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-jobwise-dark to-black text-white flex">
@@ -20,7 +34,7 @@ const AppLayout = () => {
             variant="ghost" 
             size="icon" 
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="bg-jobwise-dark/50 hover:bg-jobwise-dark/80"
+            className="bg-jobwise-dark/50 hover:bg-jobwise-dark/80 backdrop-blur-sm"
           >
             <Menu className="h-5 w-5 text-white" />
           </Button>
@@ -33,7 +47,7 @@ const AppLayout = () => {
           </div>
         </main>
         
-        <Footer />
+        {shouldShowFooter && <Footer />}
       </div>
     </div>
   );

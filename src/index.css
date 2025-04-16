@@ -154,14 +154,50 @@
     @apply absolute rounded-full backdrop-blur-md shadow-lg;
   }
 
-  /* Analytics cards */
+  /* Analytics cards - adding rounded corners */
   .analytics-card {
     @apply rounded-xl overflow-hidden;
+  }
+
+  /* 3D transform utilities */
+  .perspective-500 {
+    perspective: 500px;
+  }
+
+  .transform-3d {
+    transform-style: preserve-3d;
+  }
+
+  /* Responsive improvements */
+  @media (max-width: 640px) {
+    h1 {
+      @apply text-3xl;
+    }
+    h2 {
+      @apply text-2xl;
+    }
+    .container {
+      @apply px-4;
+    }
   }
 }
 
 #root {
   @apply min-h-screen;
+}
+
+/* Improve Home page image */
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 .logo {

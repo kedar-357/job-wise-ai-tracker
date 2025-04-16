@@ -41,7 +41,7 @@ const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
   return (
     <div 
       className={cn(
-        "fixed inset-y-0 left-0 z-50 flex flex-col bg-gradient-to-b from-jobwise-dark to-jobwise-medium text-white transition-all duration-300 ease-in-out lg:relative dark:from-gray-900 dark:to-gray-800",
+        "fixed inset-y-0 left-0 z-50 flex flex-col backdrop-blur-xl bg-jobwise-dark/80 border-r border-white/10 text-white transition-all duration-300 ease-in-out lg:relative shadow-xl dark:from-gray-900 dark:to-gray-800",
         isOpen ? "w-64" : "w-20",
         !isOpen && "items-center"
       )}
@@ -49,11 +49,13 @@ const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
       <div className="flex items-center justify-between h-16 px-4 border-b border-white/10">
         <Link to="/home" className="flex items-center">
           {isOpen ? (
-            <h1 className="font-heading text-xl font-bold tracking-wider">
+            <h1 className="font-heading text-xl font-bold tracking-wider text-white">
               JobWise AI
             </h1>
           ) : (
-            <span className="font-heading text-xl font-bold">JW</span>
+            <div className="w-8 h-8 rounded-full bg-jobwise-light flex items-center justify-center">
+              <span className="font-heading text-sm font-bold text-jobwise-dark">JW</span>
+            </div>
           )}
         </Link>
         <Button 
@@ -72,15 +74,15 @@ const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
             key={item.path}
             to={item.path}
             className={cn(
-              "flex items-center gap-3 px-3 py-2 rounded-lg transition-colors",
+              "flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200",
               location.pathname === item.path || location.pathname.startsWith(`${item.path}/`)
-                ? "bg-white/20 text-white"
+                ? "bg-white/20 text-white shadow-md"
                 : "text-white/70 hover:bg-white/10 hover:text-white",
               !isOpen && "justify-center px-2"
             )}
           >
-            <item.icon className="h-5 w-5 flex-shrink-0" />
-            {isOpen && <span>{item.label}</span>}
+            <item.icon className={cn("flex-shrink-0", isOpen ? "h-5 w-5" : "h-6 w-6")} />
+            {isOpen && <span className="text-white">{item.label}</span>}
           </Link>
         ))}
       </div>
@@ -92,7 +94,7 @@ const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
               variant="ghost" 
               size="sm" 
               onClick={handleLogout}
-              className="text-white/80 hover:text-white hover:bg-white/10 px-3"
+              className="text-white hover:text-white hover:bg-white/10 px-3"
             >
               <LogOut className="h-4 w-4 mr-2" />
               Logout
@@ -102,13 +104,13 @@ const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
               variant="ghost" 
               size="icon" 
               onClick={handleLogout}
-              className="text-white/80 hover:text-white hover:bg-white/10"
+              className="text-white hover:text-white hover:bg-white/10"
             >
               <LogOut className="h-4 w-4" />
             </Button>
           )}
           
-          <ThemeToggle className="text-white/80 hover:text-white hover:bg-white/10" />
+          <ThemeToggle className="text-white hover:text-white hover:bg-white/10" />
         </div>
         
         <div 
@@ -118,11 +120,11 @@ const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
           )}
         >
           <div className="h-8 w-8 rounded-full bg-white/20 flex items-center justify-center">
-            <User className="h-4 w-4" />
+            <User className="h-4 w-4 text-white" />
           </div>
           {isOpen && (
             <div className="flex flex-col">
-              <span className="text-sm font-medium">John Doe</span>
+              <span className="text-sm font-medium text-white">John Doe</span>
               <span className="text-xs text-white/70">john@example.com</span>
             </div>
           )}

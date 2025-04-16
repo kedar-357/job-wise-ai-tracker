@@ -1,11 +1,21 @@
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { ArrowRight, Play, CheckCircle, Award, Clock, BarChart, Target, Mail } from "lucide-react";
+import { ArrowRight, Play, CheckCircle, Award, Clock, BarChart, Target, Mail, MoveDown } from "lucide-react";
 import Footer from "@/components/Footer";
+import { useRef } from "react";
 
 const Landing = () => {
+  const scrollRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: scrollRef,
+    offset: ["start start", "end start"]
+  });
+  
+  const y = useTransform(scrollYProgress, [0, 1], [0, 200]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -14,46 +24,75 @@ const Landing = () => {
   };
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-jobwise-dark via-[#292966] to-black text-white overflow-x-hidden">
-      {/* 3D Elements */}
+    <div ref={scrollRef} className="min-h-screen w-full bg-gradient-to-br from-jobwise-dark via-[#292966] to-black text-white overflow-x-hidden">
+      {/* Animated 3D Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
-          className="absolute top-[15%] right-[10%] w-32 h-32 rounded-2xl bg-jobwise-light/30 backdrop-blur-md transform rotate-12"
+          style={{ y, opacity }}
+          className="absolute top-[15%] right-[10%] w-32 h-32 rounded-2xl bg-jobwise-light/30 backdrop-blur-xl transform rotate-12 shadow-xl border border-white/20"
         />
         <motion.div 
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.2 }}
-          className="absolute top-[25%] right-[25%] w-24 h-24 rounded-full bg-jobwise/20 backdrop-blur-md"
+          animate={{ opacity: 1, rotate: 360 }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          className="absolute top-[25%] right-[25%] w-24 h-24 rounded-full bg-jobwise/20 backdrop-blur-xl border border-white/10"
         />
         <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4 }}
-          className="absolute top-[40%] right-[15%] w-16 h-16 rounded-md bg-jobwise-medium/40 backdrop-blur-md transform -rotate-12"
+          className="absolute top-[40%] right-[15%] w-16 h-16 rounded-md bg-jobwise-medium/40 backdrop-blur-xl transform -rotate-12 border border-white/30"
         />
         <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.6 }}
-          className="absolute top-[35%] right-[30%] w-20 h-20 rounded-full border-4 border-jobwise-light/20 backdrop-blur-md"
+          className="absolute top-[35%] right-[30%] w-20 h-20 rounded-full border-4 border-jobwise-light/20 backdrop-blur-xl"
         />
         <motion.div 
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.8 }}
-          className="absolute top-[50%] right-[20%] w-12 h-12 rounded-sm bg-jobwise-medium/30 backdrop-blur-md transform rotate-45"
+          animate={{ opacity: 1, rotate: [-45, 0, 45, 0, -45] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-[50%] right-[20%] w-12 h-12 rounded-sm bg-jobwise-medium/30 backdrop-blur-xl transform"
         />
+        
+        {/* Add floating particles */}
+        {Array.from({ length: 20 }).map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute rounded-full bg-white/30"
+            style={{
+              width: Math.random() * 6 + 2,
+              height: Math.random() * 6 + 2,
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              y: [0, Math.random() * 100 - 50],
+              opacity: [0.2, 0.8, 0.2],
+            }}
+            transition={{
+              duration: Math.random() * 10 + 10,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
       </div>
 
       {/* Navbar */}
       <header className="container mx-auto px-4 py-6">
         <nav className="flex justify-between items-center">
           <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-full bg-jobwise-light"></div>
+            <motion.div 
+              initial={{ rotate: 0 }}
+              animate={{ rotate: 360 }}
+              transition={{ duration: 20, repeat: Infinity, ease: "linear" }} 
+              className="w-6 h-6 rounded-full bg-jobwise-light"
+            />
             <span className="text-xl font-bold">JobWise</span>
           </div>
           
@@ -94,7 +133,7 @@ const Landing = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
-            className="text-5xl md:text-7xl font-bold leading-tight mb-4"
+            className="text-5xl md:text-7xl font-bold leading-tight mb-4 text-white"
           >
             The new
             <span className="block">Job Search AI</span>
@@ -128,6 +167,21 @@ const Landing = () => {
               Watch demo
             </Button>
           </motion.div>
+          
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.5, duration: 1 }}
+            className="absolute bottom-12 left-1/2 transform -translate-x-1/2 hidden md:block"
+          >
+            <button 
+              onClick={() => scrollToSection('features')}
+              className="flex flex-col items-center text-white/60 hover:text-white transition-colors"
+            >
+              <span className="text-sm mb-2">Discover more</span>
+              <MoveDown className="h-6 w-6 animate-bounce" />
+            </button>
+          </motion.div>
         </div>
       </main>
 
@@ -142,7 +196,7 @@ const Landing = () => {
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">Features</h2>
-            <p className="text-xl text-white/80 max-w-3xl mx-auto">
+            <p className="text-xl text-white max-w-3xl mx-auto">
               Streamline your job search process with our comprehensive suite of tools designed to help you succeed.
             </p>
           </motion.div>
@@ -176,18 +230,18 @@ const Landing = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-jobwise-dark/60 backdrop-blur-md border border-white/10 rounded-2xl p-8 hover:transform hover:scale-105 transition-transform duration-300"
+                className="bg-jobwise-dark/60 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:transform hover:scale-105 transition-transform duration-300 shadow-lg"
               >
                 <div className="mb-4">{feature.icon}</div>
                 <h3 className="text-2xl font-bold mb-3 text-white">{feature.title}</h3>
-                <p className="text-white/80">{feature.description}</p>
+                <p className="text-white">{feature.description}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* About Section */}
+      {/* About Section with 3D Card Effect */}
       <section id="about" className="py-24 relative overflow-hidden">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -199,12 +253,12 @@ const Landing = () => {
               className="order-2 lg:order-1"
             >
               <h2 className="text-4xl font-bold mb-6 text-white">About JobWise</h2>
-              <p className="text-lg mb-6 text-white/90">
+              <p className="text-lg mb-6 text-white">
                 JobWise was created by a team of job seekers who were frustrated with the 
                 disorganized and opaque nature of the job search process. We built the tool 
                 we wished we had when applying for jobs.
               </p>
-              <p className="text-lg mb-6 text-white/90">
+              <p className="text-lg mb-6 text-white">
                 Our mission is to empower job seekers with tools that provide clarity, 
                 organization, and insights throughout their job search journey.
               </p>
@@ -227,28 +281,44 @@ const Landing = () => {
               transition={{ duration: 0.5 }}
               className="order-1 lg:order-2"
             >
-              <div className="relative">
-                <div className="aspect-video overflow-hidden rounded-2xl shadow-2xl border border-white/10">
+              <div className="relative perspective-500">
+                <motion.div 
+                  initial={{ rotateY: 0, rotateX: 0 }}
+                  animate={{ 
+                    rotateY: [0, 5, 0, -5, 0],
+                    rotateX: [0, -5, 0, 5, 0]
+                  }}
+                  transition={{ 
+                    duration: 10, 
+                    repeat: Infinity, 
+                    ease: "easeInOut" 
+                  }}
+                  className="aspect-video overflow-hidden rounded-2xl shadow-2xl border border-white/20 transform-3d"
+                >
                   <img 
                     src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
                     alt="Team working together" 
-                    className="w-full h-full object-cover" 
+                    className="w-full h-full object-cover brightness-75" 
                   />
-                </div>
-                <div className="absolute -bottom-6 -right-6 bg-jobwise-medium/90 backdrop-blur-md p-4 rounded-xl shadow-lg border border-white/20">
+                  <div className="absolute inset-0 bg-gradient-to-tr from-jobwise-dark/80 to-transparent mix-blend-overlay"></div>
+                </motion.div>
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, delay: 0.3 }}
+                  className="absolute -bottom-6 -right-6 bg-jobwise-medium backdrop-blur-xl p-4 rounded-xl shadow-lg border border-white/20 z-10"
+                >
                   <p className="text-white font-bold">Built by job seekers, for job seekers</p>
-                </div>
+                </motion.div>
               </div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
+      {/* Footer - Not fixed */}
       <Footer />
-
-      {/* Gradient overlay for depth */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none"></div>
     </div>
   );
 };

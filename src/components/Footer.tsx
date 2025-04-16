@@ -6,7 +6,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
   
   return (
-    <footer className="w-full py-8 bg-jobwise-dark border-t border-white/10">
+    <footer className="w-full py-8 bg-jobwise-dark/70 backdrop-blur-md border-t border-white/10">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="space-y-4">
@@ -14,7 +14,7 @@ const Footer = () => {
               <div className="w-6 h-6 rounded-full bg-jobwise-light"></div>
               <span className="text-xl font-bold text-white">JobWise</span>
             </div>
-            <p className="text-white/70">
+            <p className="text-white">
               The intelligent job application tracker that helps you land your dream job faster.
             </p>
           </div>
@@ -53,7 +53,7 @@ const Footer = () => {
           </div>
         </div>
         
-        <div className="mt-8 pt-6 border-t border-white/10 text-center text-white/50">
+        <div className="mt-8 pt-6 border-t border-white/10 text-center text-white/70">
           <p>© {currentYear} JobWise. All rights reserved.</p>
         </div>
       </div>
