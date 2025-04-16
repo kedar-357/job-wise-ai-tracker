@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { ArrowRight, CheckCircle, Plus, Briefcase, Sparkles, Zap, Star } from "lucide-react";
+import { ArrowRight, CheckCircle, Plus, Briefcase } from "lucide-react";
 import { motion } from "framer-motion";
 import { useJobs } from "@/contexts/JobContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -22,22 +22,18 @@ const Home = () => {
     {
       title: "Track Applications",
       description: "Keep all your job applications organized in one place",
-      icon: <CheckCircle className="h-6 w-6 text-jobwise-dark dark:text-white" />,
     },
     {
       title: "AI Resume Feedback",
       description: "Get personalized feedback to improve your resume",
-      icon: <Sparkles className="h-6 w-6 text-jobwise-dark dark:text-white" />,
     },
     {
       title: "JD Analysis",
       description: "Understand key requirements from job descriptions",
-      icon: <Zap className="h-6 w-6 text-jobwise-dark dark:text-white" />,
     },
     {
       title: "Application Insights",
       description: "Visualize your application progress with analytics",
-      icon: <Star className="h-6 w-6 text-jobwise-dark dark:text-white" />,
     },
   ];
 
@@ -64,7 +60,7 @@ const Home = () => {
               <Button 
                 asChild
                 size="lg" 
-                className="bg-black hover:bg-jobwise-dark dark:bg-black dark:hover:bg-jobwise-medium text-white border border-white/20"
+                className="bg-jobwise-medium hover:bg-jobwise-dark dark:bg-jobwise-dark dark:hover:bg-jobwise-medium"
               >
                 <Link to="/job-tracker">
                   Browse Job Tracker
@@ -74,7 +70,7 @@ const Home = () => {
               <Button 
                 size="lg" 
                 variant="outline" 
-                className="border-jobwise-medium text-white hover:bg-jobwise-light/20 dark:text-white dark:border-white/20 dark:hover:bg-jobwise-dark/50"
+                className="border-jobwise-medium text-white hover:bg-jobwise-light/20 dark:text-jobwise-light dark:border-jobwise-light dark:hover:bg-jobwise-dark/50"
                 onClick={openAddModal}
               >
                 <Plus className="mr-2 h-4 w-4" />
@@ -89,7 +85,7 @@ const Home = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="relative perspective-500"
           >
-            {/* Enhanced 3D Animated Background */}
+            {/* 3D Animated Background */}
             <motion.div 
               animate={{ 
                 rotateY: [0, -10, 0, 10, 0],
@@ -105,28 +101,21 @@ const Home = () => {
               <div className="aspect-square max-w-md mx-auto relative overflow-hidden rounded-2xl shadow-2xl border border-white/20">
                 <div className="absolute inset-0 bg-gradient-to-br from-jobwise-light via-jobwise to-jobwise-medium opacity-30"></div>
                 
-                {/* Enhanced floating particles with glow effect */}
-                {Array.from({ length: 15 }).map((_, i) => (
+                {/* Floating particles */}
+                {Array.from({ length: 12 }).map((_, i) => (
                   <motion.div
                     key={i}
-                    className="absolute rounded-full"
+                    className="absolute rounded-full bg-white"
                     style={{
                       width: Math.random() * 8 + 2,
                       height: Math.random() * 8 + 2,
                       top: `${Math.random() * 100}%`,
                       left: `${Math.random() * 100}%`,
-                      background: i % 3 === 0 
-                        ? "rgba(255, 255, 255, 0.8)" 
-                        : i % 3 === 1 
-                          ? "rgba(155, 135, 245, 0.8)"
-                          : "rgba(126, 105, 171, 0.8)",
-                      boxShadow: "0 0 8px rgba(255, 255, 255, 0.6)"
                     }}
                     animate={{
-                      y: [0, Math.random() * 60 - 30],
+                      y: [0, Math.random() * 40 - 20],
                       x: [0, Math.random() * 40 - 20],
                       opacity: [0.2, 0.8, 0.2],
-                      scale: [1, Math.random() * 0.5 + 1, 1]
                     }}
                     transition={{
                       duration: Math.random() * 10 + 5,
@@ -142,28 +131,28 @@ const Home = () => {
                   className="absolute inset-0 w-full h-full object-cover rounded-2xl mix-blend-overlay opacity-90"
                 />
                 
-                {/* Enhanced overlay gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-jobwise-dark/50 to-transparent"></div>
+                {/* Overlay gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-jobwise-dark/80 to-transparent"></div>
                 
-                {/* Enhanced Floating UI elements */}
+                {/* Floating UI elements */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5, duration: 0.5 }}
-                  className="absolute top-1/4 left-1/4 transform -translate-x-1/2 -translate-y-1/2 bg-black/50 backdrop-blur-md p-4 rounded-lg border border-white/20 shadow-lg"
+                  className="absolute top-1/4 left-1/4 transform -translate-x-1/2 -translate-y-1/2 bg-white/10 backdrop-blur-md p-3 rounded-lg border border-white/20 shadow-lg"
                 >
-                  <div className="w-20 h-3 bg-jobwise-light/50 rounded-full mb-2"></div>
-                  <div className="w-16 h-3 bg-jobwise-light/30 rounded-full"></div>
+                  <div className="w-16 h-2 bg-jobwise-light/50 rounded-full mb-1"></div>
+                  <div className="w-12 h-2 bg-jobwise-light/30 rounded-full"></div>
                 </motion.div>
                 
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.7, duration: 0.5 }}
-                  className="absolute bottom-1/3 right-1/4 transform translate-x-1/2 translate-y-1/2 bg-black/50 backdrop-blur-md p-4 rounded-lg border border-white/20 shadow-lg"
+                  className="absolute bottom-1/3 right-1/4 transform translate-x-1/2 translate-y-1/2 bg-white/10 backdrop-blur-md p-3 rounded-lg border border-white/20 shadow-lg"
                 >
-                  <div className="w-24 h-3 bg-jobwise-light/50 rounded-full mb-2"></div>
-                  <div className="w-20 h-3 bg-jobwise-light/30 rounded-full"></div>
+                  <div className="w-20 h-2 bg-jobwise-light/50 rounded-full mb-1"></div>
+                  <div className="w-16 h-2 bg-jobwise-light/30 rounded-full"></div>
                 </motion.div>
                 
                 <motion.div
@@ -175,12 +164,9 @@ const Home = () => {
                     repeat: Infinity, 
                     ease: "easeInOut" 
                   }}
-                  className="absolute bottom-10 left-1/2 transform -translate-x-1/2 bg-black/60 backdrop-blur-md px-6 py-3 rounded-full border border-white/20 shadow-lg"
+                  className="absolute bottom-10 left-1/2 transform -translate-x-1/2 bg-white/10 backdrop-blur-md px-6 py-2 rounded-full border border-white/20 shadow-lg"
                 >
-                  <span className="text-white font-semibold flex items-center">
-                    <Zap className="w-4 h-4 mr-2 text-jobwise-light" />
-                    JobWise AI
-                  </span>
+                  <span className="text-white font-semibold">JobWise AI</span>
                 </motion.div>
               </div>
             </motion.div>
@@ -188,7 +174,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Recent Applications Section with Enhanced UI */}
+      {/* Recent Applications Section */}
       <motion.section 
         className="py-8"
         initial={{ opacity: 0, y: 20 }}
@@ -211,23 +197,21 @@ const Home = () => {
 
         {recentJobs.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {recentJobs.map((job, index) => (
+            {recentJobs.map((job) => (
               <motion.div
                 key={job.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-                whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                whileHover={{ y: -5 }}
+                transition={{ duration: 0.2 }}
               >
-                <Card className="h-full glass-card border-jobwise-light/50 hover:border-jobwise dark:bg-black dark:border-white/20 dark:hover:border-jobwise-medium transition-all duration-300">
+                <Card className="h-full glass-card border-jobwise-light/50 hover:border-jobwise dark:bg-jobwise-dark/60 dark:border-jobwise-medium/30 dark:hover:border-jobwise-medium">
                   <CardHeader className="pb-2">
                     <CardTitle className="text-lg flex justify-between items-start">
                       <span className="text-white">{job.company}</span>
                       <span className={`text-xs px-2 py-1 rounded-full ${
-                        job.status === 'applied' ? 'bg-blue-900/30 text-blue-200 border border-blue-500/30' :
-                        job.status === 'interview' ? 'bg-yellow-900/30 text-yellow-200 border border-yellow-500/30' :
-                        job.status === 'offered' ? 'bg-green-900/30 text-green-200 border border-green-500/30' :
-                        'bg-red-900/30 text-red-200 border border-red-500/30'
+                        job.status === 'applied' ? 'bg-blue-900/30 text-blue-200' :
+                        job.status === 'interview' ? 'bg-yellow-900/30 text-yellow-200' :
+                        job.status === 'offered' ? 'bg-green-900/30 text-green-200' :
+                        'bg-red-900/30 text-red-200'
                       }`}>
                         {job.status.charAt(0).toUpperCase() + job.status.slice(1)}
                       </span>
@@ -236,8 +220,7 @@ const Home = () => {
                   <CardContent>
                     <p className="text-white font-medium">{job.role}</p>
                     <p className="text-sm text-white/70">{job.pay}</p>
-                    <div className="mt-3 text-xs text-white/70 flex items-center">
-                      <div className="h-1.5 w-1.5 rounded-full bg-jobwise-light mr-2"></div>
+                    <div className="mt-3 text-xs text-white/70">
                       Applied {formatDistanceToNow(new Date(job.dateApplied), { addSuffix: true })}
                     </div>
                   </CardContent>
@@ -246,14 +229,14 @@ const Home = () => {
             ))}
           </div>
         ) : (
-          <Card className="glass-card border-jobwise-light dark:bg-black dark:border-white/20">
+          <Card className="glass-card border-jobwise-light dark:bg-jobwise-dark/60 dark:border-jobwise-medium/30">
             <CardContent className="p-6 text-center">
               <Briefcase className="mx-auto h-12 w-12 text-jobwise-light/50 mb-4" />
               <h3 className="text-lg font-medium text-white mb-2">No applications yet</h3>
               <p className="text-white/70 mb-4">Start tracking your job applications to see them here</p>
               <Button 
                 onClick={openAddModal}
-                className="bg-black hover:bg-jobwise-dark text-white border border-white/20"
+                className="bg-jobwise-medium hover:bg-jobwise-dark dark:bg-jobwise-dark dark:hover:bg-jobwise-medium"
               >
                 <Plus className="mr-2 h-4 w-4" />
                 Add Your First Job
@@ -263,7 +246,7 @@ const Home = () => {
         )}
       </motion.section>
 
-      {/* Features Section with Enhanced UI */}
+      {/* Features Section */}
       <section className="py-12">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-white mb-4">
@@ -282,15 +265,10 @@ const Home = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ 
-                y: -5,
-                boxShadow: "0 15px 30px rgba(0,0,0,0.2)",
-                transition: { duration: 0.2 }
-              }}
-              className="glass-card rounded-xl p-6 dark:bg-black dark:border-white/20 hover:border-jobwise-light/30 transition-all duration-300"
+              className="glass-card rounded-xl p-6 dark:bg-jobwise-dark/60 dark:border-jobwise-medium/30"
             >
-              <div className="h-12 w-12 rounded-full bg-jobwise-light/10 flex items-center justify-center mb-4 dark:bg-jobwise-medium/30 border border-white/10">
-                {feature.icon}
+              <div className="h-12 w-12 rounded-full bg-jobwise-light flex items-center justify-center mb-4 dark:bg-jobwise-medium/30">
+                <CheckCircle className="h-6 w-6 text-jobwise-dark dark:text-white" />
               </div>
               <h3 className="text-xl font-bold text-white mb-2">
                 {feature.title}

@@ -2,7 +2,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { ArrowRight, Play, CheckCircle, Award, Clock, BarChart, Target, Mail, MoveDown, Star, Shield, Zap, Maximize } from "lucide-react";
+import { ArrowRight, Play, CheckCircle, Award, Clock, BarChart, Target, Mail, MoveDown } from "lucide-react";
 import Footer from "@/components/Footer";
 import { useRef } from "react";
 
@@ -25,24 +25,8 @@ const Landing = () => {
 
   return (
     <div ref={scrollRef} className="min-h-screen w-full bg-gradient-to-br from-jobwise-dark via-[#292966] to-black text-white overflow-x-hidden">
-      {/* Enhanced 3D Elements */}
+      {/* Animated 3D Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Large orb with glow effect */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ 
-            opacity: [0.2, 0.5, 0.2],
-            scale: [1, 1.1, 1],
-            rotateZ: 360
-          }}
-          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-          className="absolute -top-[10%] right-[5%] w-64 h-64 rounded-full bg-gradient-to-br from-jobwise-light/30 to-jobwise/5 backdrop-blur-3xl shadow-[0_0_150px_rgba(155,135,245,0.3)]"
-          style={{
-            filter: "blur(40px)"
-          }}
-        />
-        
-        {/* Floating geometric shapes */}
         <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -50,28 +34,24 @@ const Landing = () => {
           style={{ y, opacity }}
           className="absolute top-[15%] right-[10%] w-32 h-32 rounded-2xl bg-jobwise-light/30 backdrop-blur-xl transform rotate-12 shadow-xl border border-white/20"
         />
-        
         <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1, rotate: 360 }}
           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
           className="absolute top-[25%] right-[25%] w-24 h-24 rounded-full bg-jobwise/20 backdrop-blur-xl border border-white/10"
         />
-        
         <motion.div 
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4 }}
           className="absolute top-[40%] right-[15%] w-16 h-16 rounded-md bg-jobwise-medium/40 backdrop-blur-xl transform -rotate-12 border border-white/30"
         />
-        
         <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.6 }}
           className="absolute top-[35%] right-[30%] w-20 h-20 rounded-full border-4 border-jobwise-light/20 backdrop-blur-xl"
         />
-        
         <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1, rotate: [-45, 0, 45, 0, -45] }}
@@ -79,41 +59,19 @@ const Landing = () => {
           className="absolute top-[50%] right-[20%] w-12 h-12 rounded-sm bg-jobwise-medium/30 backdrop-blur-xl transform"
         />
         
-        {/* Glowing orb on left side */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ 
-            opacity: [0.2, 0.6, 0.2],
-            scale: [1, 1.2, 1]
-          }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-[30%] left-[10%] w-40 h-40 rounded-full"
-          style={{
-            background: "radial-gradient(circle, rgba(155,135,245,0.3) 0%, rgba(155,135,245,0.1) 50%, rgba(155,135,245,0) 70%)",
-            filter: "blur(20px)"
-          }}
-        />
-        
-        {/* Enhanced particles with more variety */}
-        {Array.from({ length: 30 }).map((_, i) => (
+        {/* Add floating particles */}
+        {Array.from({ length: 20 }).map((_, i) => (
           <motion.div
             key={i}
-            className="absolute rounded-full"
+            className="absolute rounded-full bg-white/30"
             style={{
               width: Math.random() * 6 + 2,
               height: Math.random() * 6 + 2,
               top: `${Math.random() * 100}%`,
               left: `${Math.random() * 100}%`,
-              background: i % 3 === 0 
-                ? "rgba(255, 255, 255, 0.6)" 
-                : i % 3 === 1 
-                  ? "rgba(155, 135, 245, 0.6)"
-                  : "rgba(126, 105, 171, 0.6)",
-              boxShadow: i % 5 === 0 ? "0 0 5px rgba(255, 255, 255, 0.8)" : "none"
             }}
             animate={{
               y: [0, Math.random() * 100 - 50],
-              x: [0, Math.random() * 60 - 30],
               opacity: [0.2, 0.8, 0.2],
             }}
             transition={{
@@ -123,26 +81,6 @@ const Landing = () => {
             }}
           />
         ))}
-        
-        {/* Animated grid lines for depth */}
-        <div className="absolute inset-0 opacity-10" 
-          style={{
-            backgroundImage: "linear-gradient(rgba(155, 135, 245, 0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(155, 135, 245, 0.3) 1px, transparent 1px)",
-            backgroundSize: "60px 60px",
-          }}
-        >
-          <motion.div 
-            className="w-full h-full"
-            animate={{
-              backgroundPosition: ["0px 0px", "60px 60px"]
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              ease: "linear"
-            }}
-          />
-        </div>
       </div>
 
       {/* Navbar */}
@@ -180,7 +118,7 @@ const Landing = () => {
               </Button>
             </Link>
             <Link to="/signup">
-              <Button className="bg-black text-white hover:bg-jobwise-light hover:text-black rounded-full px-5">
+              <Button className="bg-white text-jobwise-dark hover:bg-jobwise-light hover:text-jobwise-dark rounded-full px-5">
                 Try for free
               </Button>
             </Link>
@@ -188,7 +126,7 @@ const Landing = () => {
         </nav>
       </header>
 
-      {/* Enhanced Hero Section */}
+      {/* Hero Section */}
       <main className="container mx-auto px-4 pt-12 md:pt-24 pb-24 relative z-10">
         <div className="max-w-3xl">
           <motion.h1 
@@ -197,15 +135,8 @@ const Landing = () => {
             transition={{ duration: 0.7 }}
             className="text-5xl md:text-7xl font-bold leading-tight mb-4 text-white"
           >
-            The new <span className="relative">
-              <span className="relative z-10">Job Search AI</span>
-              <motion.span
-                className="absolute -bottom-2 left-0 w-full h-3 bg-jobwise-light/30 rounded-full"
-                initial={{ width: 0 }}
-                animate={{ width: "100%" }}
-                transition={{ duration: 1, delay: 0.5 }}
-              />
-            </span>
+            The new
+            <span className="block">Job Search AI</span>
           </motion.h1>
           
           <motion.p 
@@ -225,7 +156,7 @@ const Landing = () => {
             className="flex flex-wrap gap-4"
           >
             <Link to="/signup">
-              <Button className="bg-black text-white hover:bg-jobwise-light hover:text-black rounded-full px-6 py-6 border border-white/20">
+              <Button className="bg-jobwise-medium hover:bg-jobwise text-white rounded-full px-6 py-6">
                 Start tracking
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
@@ -235,63 +166,6 @@ const Landing = () => {
               <Play className="mr-2 h-4 w-4" />
               Watch demo
             </Button>
-          </motion.div>
-          
-          {/* 3D Floating Card */}
-          <motion.div
-            initial={{ opacity: 0, y: 100 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.8 }}
-            className="absolute right-8 lg:right-36 top-32 lg:top-40 perspective-500 hidden md:block"
-          >
-            <motion.div
-              animate={{ 
-                rotateX: [2, -2, 2],
-                rotateY: [-2, 2, -2],
-              }}
-              transition={{ 
-                duration: 6, 
-                repeat: Infinity, 
-                ease: "easeInOut" 
-              }}
-              className="transform-3d w-64 h-52 rounded-xl p-5 bg-black/30 backdrop-blur-lg border border-white/10 shadow-lg"
-            >
-              <div className="flex items-center mb-4">
-                <div className="w-10 h-10 rounded-full bg-jobwise-light/30 flex items-center justify-center">
-                  <Zap className="w-5 h-5 text-white" />
-                </div>
-                <div className="ml-3">
-                  <div className="h-2 w-24 bg-white/20 rounded-full"></div>
-                  <div className="h-2 w-16 bg-white/10 rounded-full mt-1"></div>
-                </div>
-              </div>
-              
-              <div className="space-y-3">
-                <div className="h-2 w-full bg-white/20 rounded-full"></div>
-                <div className="h-2 w-3/4 bg-white/15 rounded-full"></div>
-                <div className="h-2 w-5/6 bg-white/10 rounded-full"></div>
-              </div>
-              
-              <div className="absolute bottom-5 right-5">
-                <div className="h-8 w-20 rounded-full bg-jobwise-light/20 flex items-center justify-center">
-                  <div className="h-2 w-12 bg-white/30 rounded-full"></div>
-                </div>
-              </div>
-              
-              <motion.div
-                animate={{ 
-                  opacity: [0.5, 1, 0.5],
-                }}
-                transition={{ 
-                  duration: 2, 
-                  repeat: Infinity, 
-                  ease: "easeInOut" 
-                }}
-                className="absolute -right-4 -bottom-4 w-12 h-12 rounded-full bg-jobwise-light/30 flex items-center justify-center border border-white/20"
-              >
-                <Star className="w-6 h-6 text-white" />
-              </motion.div>
-            </motion.div>
           </motion.div>
           
           <motion.div
@@ -311,7 +185,7 @@ const Landing = () => {
         </div>
       </main>
 
-      {/* Enhanced Features Section */}
+      {/* Features Section */}
       <section id="features" className="py-24 bg-black/30 backdrop-blur-md">
         <div className="container mx-auto px-4">
           <motion.div 
@@ -356,11 +230,7 @@ const Landing = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ 
-                  y: -10,
-                  transition: { duration: 0.2 }
-                }}
-                className="bg-black/60 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-jobwise-light/50 transition-all duration-300 shadow-lg"
+                className="bg-jobwise-dark/60 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:transform hover:scale-105 transition-transform duration-300 shadow-lg"
               >
                 <div className="mb-4">{feature.icon}</div>
                 <h3 className="text-2xl font-bold mb-3 text-white">{feature.title}</h3>
@@ -371,7 +241,7 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* Enhanced About Section with 3D Card Effect */}
+      {/* About Section with 3D Card Effect */}
       <section id="about" className="py-24 relative overflow-hidden">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -392,13 +262,13 @@ const Landing = () => {
                 Our mission is to empower job seekers with tools that provide clarity, 
                 organization, and insights throughout their job search journey.
               </p>
-              <div className="flex flex-wrap gap-6 items-center">
-                <div className="flex items-center gap-2 bg-black/30 backdrop-blur-md rounded-full px-4 py-2 border border-white/10">
-                  <Award className="h-5 w-5 text-jobwise-light" />
+              <div className="flex flex-wrap gap-4 items-center">
+                <div className="flex items-center gap-2">
+                  <Award className="h-6 w-6 text-jobwise-light" />
                   <span className="text-white">Trusted by 10,000+ users</span>
                 </div>
-                <div className="flex items-center gap-2 bg-black/30 backdrop-blur-md rounded-full px-4 py-2 border border-white/10">
-                  <Mail className="h-5 w-5 text-jobwise-light" />
+                <div className="flex items-center gap-2">
+                  <Mail className="h-6 w-6 text-jobwise-light" />
                   <span className="text-white">Dedicated support</span>
                 </div>
               </div>
@@ -431,32 +301,13 @@ const Landing = () => {
                     className="w-full h-full object-cover brightness-75" 
                   />
                   <div className="absolute inset-0 bg-gradient-to-tr from-jobwise-dark/80 to-transparent mix-blend-overlay"></div>
-                  
-                  {/* Floating elements on the image */}
-                  <motion.div
-                    initial={{ y: 10, opacity: 0.7 }}
-                    animate={{ y: [10, 0, 10], opacity: [0.7, 1, 0.7] }}
-                    transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                    className="absolute top-1/4 left-1/4 bg-black/30 backdrop-blur-md p-3 rounded-lg border border-white/20 shadow-xl"
-                  >
-                    <Shield className="h-5 w-5 text-jobwise-light" />
-                  </motion.div>
-                  
-                  <motion.div
-                    initial={{ y: -10, opacity: 0.7 }}
-                    animate={{ y: [-10, 0, -10], opacity: [0.7, 1, 0.7] }}
-                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                    className="absolute bottom-1/3 right-1/4 bg-black/30 backdrop-blur-md p-3 rounded-lg border border-white/20 shadow-xl"
-                  >
-                    <Maximize className="h-5 w-5 text-jobwise-light" />
-                  </motion.div>
                 </motion.div>
                 <motion.div 
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.7, delay: 0.3 }}
-                  className="absolute -bottom-6 -right-6 bg-black backdrop-blur-xl p-4 rounded-xl shadow-lg border border-white/20 z-10"
+                  className="absolute -bottom-6 -right-6 bg-jobwise-medium backdrop-blur-xl p-4 rounded-xl shadow-lg border border-white/20 z-10"
                 >
                   <p className="text-white font-bold">Built by job seekers, for job seekers</p>
                 </motion.div>

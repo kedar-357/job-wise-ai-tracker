@@ -22,19 +22,8 @@ const AppLayout = () => {
   }, [isMobile]);
 
   // Pages that should not display the footer
-  const noFooterPages = [
-    '/login', 
-    '/signup', 
-    '/resume-feedback', 
-    '/jd-analysis', 
-    '/analytics', 
-    '/job-tracker',
-  ];
-  
-  // Check if current path starts with any of the no-footer paths
-  const shouldShowFooter = !noFooterPages.some(path => 
-    location.pathname === path || location.pathname.startsWith(`${path}/`)
-  );
+  const noFooterPages = ['/login', '/signup'];
+  const shouldShowFooter = !noFooterPages.includes(location.pathname);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-jobwise-dark to-black text-white flex">
